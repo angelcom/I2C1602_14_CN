@@ -36,7 +36,7 @@ namespace I2C_LCD1602 {
     }
     // send command
     function command(d: number) {
-        pins.i2cWriteNumber(i2cAddr, 0x80, 2, true)
+        pins.i2cWriteNumber(i2cAddr, 0x80, 2)
 	pins.i2cWriteNumber(i2cAddr, d, 2)
 	basic.pause(1)
     }
