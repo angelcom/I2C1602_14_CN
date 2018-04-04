@@ -67,9 +67,8 @@ namespace I2C_LCD1602 {
         setreg2(0x28)       // set mode
         setreg2(0x0C)
 	//basic.pause(1)
-
+        
 	setreg2(0x06)
-	//basic.pause()
 
 	setreg2(0x01)       // clear
 	basic.pause(2)
