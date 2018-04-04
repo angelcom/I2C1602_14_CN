@@ -1,15 +1,15 @@
 /**
-* makecode I2C LCM1602-14 package for microbit.
-* From lingsky.
-* http://www.lingsky.net
+* makecode I2C LCD1602 package for microbit.
+* From microbit/micropython Chinese community.
+* http://www.micropython.org.cn
 */
 
 /**
  * I2C LCD1602 液晶软件包
  */
-//% weight=100 color=#0fbc11 icon="0"
+//% weight=100 color=#0fbc11 icon="▀"
 namespace I2C_LCD1602 {
-    let i2cAddr: number // 62（0x3E）:LCM1602-14
+    let i2cAddr: number // 0x3F: PCF8574A, 0x27: PCF8574
     let BK: number      // backlight control
     let RS: number      // command/data
 
@@ -18,12 +18,7 @@ namespace I2C_LCD1602 {
         pins.i2cWriteNumber(i2cAddr, d, NumberFormat.Int8LE)
         basic.pause(1)
     }
-    // set LCD reg
-    function setreg2(d: number) {
-        pins.i2cWriteNumber(i2cAddr, 0x80, 2, true)
-        pins.i2cWriteNumber(i2cAddr, d, 2)
-        basic.pause(1)
-    }
+
     // send data to I2C bus
     function set(d: number) {
         d = d & 0xF0
@@ -48,8 +43,8 @@ namespace I2C_LCD1602 {
     }
 
     /**
-     * 初始化 LCD, 设置 I2C 地址。I2C LCM1602-14默认 62（0x3E）。
-     * @param address is i2c address for LCD, eg: 62（0x3E）
+     * 初始化 LCD, 设置 I2C 地址。根据芯片不同地址有两种，PCF8574 是 39，PCF8574A 是 63。
+     * @param address is i2c address for LCD, eg: 39, 63
      */
     //% blockId="I2C_LCD1620_SET_ADDRESS" block="初始化液晶，I2C 地址 %addr"
     //% weight=100 blockGap=8
@@ -57,20 +52,18 @@ namespace I2C_LCD1602 {
         i2cAddr = address
         BK = 8
         RS = 0
-	
-	basic.pause(50)
-        setreg2(0x28)       // set 4bit mode
+	 basic.pause(50)
+        cmd(0x28)       // set 4bit mode
         basic.pause(5)
-        setreg2(0x28)
+         cmd(0x28)       // set 4bit mode
         basic.pause(1)
-        setreg2(0x28)
-        setreg2(0x28)       // set mode
-        setreg2(0x0C)
-	basic.pause(1)
-        setreg2(0x01)       // clear
+         cmd(0x28)       // set 4bit mode
+        basic.pause(1)
+        cmd(0x28)       // set mode
+        cmd(0x0C)
+        cmd(0x06)
+        cmd(0x01)       // clear
 	basic.pause(2)
-        setreg2(0x06)
-	basic.pause(5)
     }
 
     /**
