@@ -34,7 +34,11 @@ namespace I2C_LCD1602 {
         set(d)
         set(d << 4)
     }
-
+    // send command
+    function cmd2(d: number) {
+        pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE, true)
+	pins.i2cWriteNumber(i2cAddr, d, NumberFormat.Int8LE)
+    }
     // send data
     function dat(d: number) {
         RS = 1
@@ -53,16 +57,16 @@ namespace I2C_LCD1602 {
         BK = 8
         RS = 0
 	 basic.pause(50)
-        cmd(0x28)       // set 4bit mode
+        cmd2(0x28)       // set 4bit mode
         basic.pause(5)
-         cmd(0x28)       // set 4bit mode
+         cmd2(0x28)       // set 4bit mode
         basic.pause(1)
-         cmd(0x28)       // set 4bit mode
+         cmd2(0x28)       // set 4bit mode
         basic.pause(1)
-        cmd(0x28)       // set mode
-        cmd(0x0C)
-        cmd(0x06)
-        cmd(0x01)       // clear
+        cmd2(0x28)       // set mode
+        cmd2(0x0C)
+        cmd2(0x06)
+        cmd2(0x01)       // clear
 	basic.pause(2)
     }
 
