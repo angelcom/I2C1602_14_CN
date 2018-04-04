@@ -57,12 +57,12 @@ namespace I2C_LCD1602 {
         i2cAddr = address
         BK = 8
         RS = 0
-	 basic.pause(50)
+	 basic.pause(500)
         command(0x28)       // set 4bit mode
         basic.pause(5)
          command(0x28)       // set 4bit mode
         basic.pause(1)
-         cmd2(0x28)       // set 4bit mode
+         command(0x28)       // set 4bit mode
         basic.pause(1)
         command(0x28)       // set mode
         command(0x0C)
