@@ -18,7 +18,12 @@ namespace I2C_LCD1602 {
         pins.i2cWriteNumber(i2cAddr, d, NumberFormat.Int8LE)
         basic.pause(1)
     }
-
+    // set LCD reg
+    function setreg2(d: number) {
+        pins.i2cWriteNumber(i2cAddr, 0x80, NumberFormat.Int8LE)
+        pins.i2cWriteNumber(i2cAddr, d, NumberFormat.Int8LE)
+        //basic.pause(1)
+    }
     // send data to I2C bus
     function set(d: number) {
         d = d & 0xF0
@@ -52,16 +57,20 @@ namespace I2C_LCD1602 {
         i2cAddr = address
         BK = 8
         RS = 0
+	
+	basic.pause(51)
+        setreg2(0x28)       // set 4bit mode
+        basic.pause(6)
+        setreg2(0x28)
+        basic.pause(3)
+        setreg2(0x28)
+        setreg2(0x28)       // set mode
+        setreg2(0x0C)
+	basic.pause(100)
+        setreg2(0x01)       // clear
+	basic.pause(200)
+        setreg2(0x06)
 	basic.pause(50)
-        cmd(0x28)       // set 4bit mode
-        basic.pause(5)
-        set(0x28)
-        basic.pause(2)
-        set(0x28)
-        cmd(0x28)       // set mode
-        cmd(0x0C)
-        cmd(0x01)       // clear
-        cmd(0x06)
     }
 
     /**
