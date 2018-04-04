@@ -58,11 +58,11 @@ namespace I2C_LCD1602 {
         BK = 8
         RS = 0
 	
-	basic.pause(50)
+	basic.pause(51)
         setreg2(0x28)       // set 4bit mode
-        basic.pause(5)
+        basic.pause(6)
         setreg2(0x28)
-        basic.pause(2)
+        basic.pause(3)
         setreg2(0x28)
         setreg2(0x28)       // set mode
         setreg2(0x0C)
