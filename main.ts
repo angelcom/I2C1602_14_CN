@@ -59,11 +59,11 @@ namespace I2C_LCD1602 {
         RS = 0
 	 basic.pause(500)
         command(0x28)       // set 4bit mode
-        basic.pause(5)
+        basic.pause(10)
          command(0x28)       // set 4bit mode
-        basic.pause(1)
+        basic.pause(2)
          command(0x28)       // set 4bit mode
-        basic.pause(1)
+        //basic.pause()
         command(0x28)       // set mode
         command(0x0C)
         command(0x06)
