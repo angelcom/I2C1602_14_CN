@@ -44,7 +44,7 @@ namespace I2C_LCD1602 {
 
     /**
      * 初始化 LCD, 设置 I2C 地址。根据芯片不同地址有两种，PCF8574 是 39，PCF8574A 是 63。
-     * @param address is i2c address for LCD, eg: 39, 63
+     * @param address is i2c address for LCD, eg: 62 (0x3e)
      */
     //% blockId="I2C_LCD1620_SET_ADDRESS" block="初始化液晶，I2C 地址 %addr"
     //% weight=100 blockGap=8
