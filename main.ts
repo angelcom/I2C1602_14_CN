@@ -36,12 +36,12 @@ namespace I2C_LCD1602 {
     }
     // send command
     function command(d: number) {
-        pins.i2cWriteNumber(i2cAddr, 0x8000|d, 4)
-	   // basic.pause(1)
+        pins.i2cWriteNumber(i2cAddr, 0x8000|d, 9)
+	    //basic.pause(1)
     }
         // send data
     function dat(d: number) {
-         pins.i2cWriteNumber(i2cAddr, 0x4000|d, 4)
+         pins.i2cWriteNumber(i2cAddr, 0x4000|d, 9)
          //basic.pause(1)
     }
     function setCursor(col:number,  row:number)  {
@@ -62,10 +62,9 @@ namespace I2C_LCD1602 {
 	    basic.pause(500)
         command(0x28)       // set 4bit mode
         basic.pause(10)
-         command(0x28)       // set 4bit mode
+        command(0x28)       // set 4bit mode
         basic.pause(2)
-         command(0x28)       // set 4bit mode
-        //basic.pause()
+        command(0x28)       // set 4bit mode
         command(0x28)       // set mode
         command(0x0C)
         command(0x06)
