@@ -30,12 +30,6 @@ namespace I2C_LCD1602 {
 
     // send command
     function cmd(d: number) {
-        RS = 0
-        set(d)
-        set(d << 4)
-    }
-    // send command
-    function command(d: number) {
         pins.i2cWriteNumber(i2cAddr, 0x8000|d, 9)
 	    //basic.pause(1)
     }
@@ -46,7 +40,7 @@ namespace I2C_LCD1602 {
     }
     function setCursor(col:number,  row:number)  {
         col = (row == 0 ? col | 0x80 : col | 0xc0);
-        command(col)
+        cmd(col)
     }
 
     /**
@@ -59,16 +53,16 @@ namespace I2C_LCD1602 {
         i2cAddr = address
         BK = 8
         RS = 0
-	    basic.pause(500)
-        command(0x28)       // set 4bit mode
-        basic.pause(10)
-        command(0x28)       // set 4bit mode
-        basic.pause(2)
-        command(0x28)       // set 4bit mode
-        command(0x28)       // set mode
-        command(0x0C)
-        command(0x06)
-        command(0x01)       // clear
+	    basic.pause(50)
+        cmd(0x28)       // set 4bit mode
+        basic.pause(6)
+        cmd(0x28)       // set 4bit mode
+        basic.pause(1)
+        cmd(0x28)       // set 4bit mode
+        cmd(0x28)       // set mode
+        cmd(0x0C)
+        cmd(0x06)
+        cmd(0x01)       // clear
 	    basic.pause(2)
     }
 
@@ -111,7 +105,7 @@ namespace I2C_LCD1602 {
     //% blockId="I2C_LCD1620_ON" block="打开液晶"
     //% weight=80 blockGap=8
     export function on(): void {
-        command(0x0C)
+        cmd(0x0C)
     }
 
     /**
@@ -120,7 +114,7 @@ namespace I2C_LCD1602 {
     //% blockId="I2C_LCD1620_OFF" block="关闭液晶"
     //% weight=80 blockGap=8
     export function off(): void {
-        command(0x08)
+        cmd(0x08)
     }
 
     /**
@@ -129,7 +123,7 @@ namespace I2C_LCD1602 {
     //% blockId="I2C_LCD1620_CLEAR" block="清除液晶显示内容"
     //% weight=75 blockGap=8
     export function clear(): void {
-        command(0x01)
+        cmd(0x01)
     }
 
     /**
