@@ -23,6 +23,7 @@ namespace I2C_LCD1602 {
          pins.i2cWriteNumber(i2cAddr, 0x4000|d, 9)
          //basic.pause(1)
     }
+}
     function setCursor(col:number,  row:number)  {
         col = (row == 0 ? col | 0x80 : col | 0xc0);
         cmd(col)
