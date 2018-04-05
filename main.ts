@@ -7,7 +7,7 @@
 /**
  * I2C LCM1602-14 液晶软件包
  */
-//% weight=100 color=#0fbc11 icon="LCD"
+//% weight=100 color=#0fbc11 icon="/uf017"
 namespace I2C_LCD1602 {
     let i2cAddr: number // 0x3E
     let BK: number      // backlight control
@@ -15,14 +15,34 @@ namespace I2C_LCD1602 {
 
     // send command
     function cmd(d: number) {
-        pins.i2cWriteNumber(i2cAddr, 0x8000|d, 9)
-	    //basic.pause(1)
+        //pins.i2cWriteNumber(i2cAddr, 0x8000|d, 9)
+        //basic.pause(1)
+        i2ccmd(i2cAddr,d)
     }
         // send data
     function dat(d: number) {
-         pins.i2cWriteNumber(i2cAddr, 0x4000|d, 9)
+         //pins.i2cWriteNumber(i2cAddr, 0x4000|d, 9)
          //basic.pause(1)
+         i2cwrite(i2cAddr,0x40,d)
     }
+    // 从robotbit找来的代码，看上去更科学一些。。。。
+    function i2cwrite(addr: number, reg: number, value: number) {
+        let buf = pins.createBuffer(2)
+        buf[0] = reg
+        buf[1] = value
+        pins.i2cWriteBuffer(addr, buf)
+    }
+
+    function i2ccmd(addr: number, value: number) {
+        let buf = pins.createBuffer(1)
+        buf[0] = value
+        pins.i2cWriteBuffer(addr, buf)
+    }
+
+    function i2cread(addr: number, reg: number) {
+        pins.i2cWriteNumber(addr, reg, NumberFormat.UInt8BE);
+        let val = pins.i2cReadNumber(addr, NumberFormat.UInt8BE);
+        return val;
 }
     function setCursor(col:number,  row:number)  {
         col = (row == 0 ? col | 0x80 : col | 0xc0);
@@ -44,8 +64,8 @@ namespace I2C_LCD1602 {
         basic.pause(1)
         cmd(0x0C)
         cmd(0x06)
-        cmd(0x01)       // clear
-	    basic.pause(2)
+        cmd(0x01)       // clear wait more then 2ms
+	    basic.pause(5)
     }
 
     /**
@@ -106,6 +126,7 @@ namespace I2C_LCD1602 {
     //% weight=75 blockGap=8
     export function clear(): void {
         cmd(0x01)
+        basic.pause(2)
     }
 
     /**
