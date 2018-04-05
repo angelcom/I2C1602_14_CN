@@ -7,26 +7,11 @@
 /**
  * I2C LCM1602-14 液晶软件包
  */
-//% weight=100 color=#0fbc11 icon="L"
+//% weight=100 color=#0fbc11 icon="LCD"
 namespace I2C_LCD1602 {
     let i2cAddr: number // 0x3E
     let BK: number      // backlight control
     let RS: number      // command/data
-
-    // set LCD reg
-    function setreg(d: number) {
-        pins.i2cWriteNumber(i2cAddr, d, NumberFormat.Int8LE)
-        basic.pause(1)
-    }
-
-    // send data to I2C bus
-    function set(d: number) {
-        d = d & 0xF0
-        d = d + BK + RS
-        setreg(d)
-        setreg(d + 4)
-        setreg(d)
-    }
 
     // send command
     function cmd(d: number) {
@@ -55,11 +40,7 @@ namespace I2C_LCD1602 {
         RS = 0
 	    basic.pause(50)
         cmd(0x28)       // set 4bit mode
-        basic.pause(6)
-        cmd(0x28)       // set 4bit mode
         basic.pause(1)
-        cmd(0x28)       // set 4bit mode
-        cmd(0x28)       // set mode
         cmd(0x0C)
         cmd(0x06)
         cmd(0x01)       // clear
@@ -131,19 +112,19 @@ namespace I2C_LCD1602 {
      */
     //% blockId="I2C_LCD1620_BACKLIGHT_ON" block="打开液晶背光"
     //% weight=70 blockGap=8
-    export function BacklightOn(): void {
-        //BK = 8
-        dat(9)
-    }
+    //export function BacklightOn(): void {
+    //    //BK = 8
+    //   dat(9)
+    //}
 
     /**
      * 关闭液晶的背光
      */
     //% blockId="I2C_LCD1620_BACKLIGHT_OFF" block="关闭液晶背光"
     //% weight=70 blockGap=8
-    export function BacklightOff(): void {
-        //BK = 0
-        dat(1)
-    }
+    //export function BacklightOff(): void {
+    //    //BK = 0
+    //   dat(1)
+    //}
 
 }
