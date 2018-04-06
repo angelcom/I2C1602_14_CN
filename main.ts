@@ -7,7 +7,7 @@
 /**
  * I2C LCM1602-14 液晶软件包
  */
-//% weight=100 color=#0fbc11 icon="/uf017"
+//% weight=100 color=#0fbc11 icon="/u2618"
 namespace I2C_LCD1602 {
     let i2cAddr: number // 0x3E
     let BK: number      // backlight control
@@ -65,8 +65,9 @@ namespace I2C_LCD1602 {
         basic.pause(1)
         cmd(0x0C)
         cmd(0x06)
+        basic.pause(20)
         cmd(0x01)       // clear wait more then 2ms
-	    basic.pause(5)
+	    basic.pause(20)
     }
 
     /**
@@ -127,7 +128,7 @@ namespace I2C_LCD1602 {
     //% weight=75 blockGap=8
     export function clear(): void {
         cmd(0x01)
-        basic.pause(5)
+        basic.pause(10)
     }
 
     /**
