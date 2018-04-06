@@ -61,6 +61,7 @@ namespace I2C_LCD1602 {
         RS = 0
 	    basic.pause(50)
         cmd(0x28)       // set 4bit mode
+        cmd(0x28)       // set 4bit mode
         basic.pause(1)
         cmd(0x0C)
         cmd(0x06)
@@ -126,7 +127,7 @@ namespace I2C_LCD1602 {
     //% weight=75 blockGap=8
     export function clear(): void {
         cmd(0x01)
-        basic.pause(2)
+        basic.pause(5)
     }
 
     /**
@@ -148,5 +149,6 @@ namespace I2C_LCD1602 {
     //    //BK = 0
     //   dat(1)
     //}
+    
 
 }
