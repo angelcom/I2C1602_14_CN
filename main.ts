@@ -7,7 +7,7 @@
 /**
  * I2C LCM1602-14 液晶软件包
  */
-//% weight=100 color=#55F343 icon=""
+//% weight=100 color=#0020ff icon=""
 namespace I2C_LCD1602_14 {
     let i2cAddr: number // 0x3E
     //let BK: number      // backlight control Not Use
@@ -123,7 +123,7 @@ namespace I2C_LCD1602_14 {
         dat(0)
     }
 
-    //% blockId="I2C_LCD1620_CustomChar_Conv" block="自定义字符 %c"
+    //% blockId="I2C_LCD1602_CustomChar_Conv" block="自定义字符 %c"
     export function CustomCharConv(c: CustomChar): number[] {
         switch (c) {
             case CustomChar.ArmsDown: return ArmsDown;
@@ -163,7 +163,7 @@ namespace I2C_LCD1602_14 {
      * @param x is LCD column position, eg: 0
      * @param y is LCD row position, eg: 0
      */
-    //% blockId="I2C_LCD1620_SHOW_NUMBER" block="显示 数字 %n|位置 x %x|y %y"
+    //% blockId="I2C_LCD1602_SHOW_NUMBER" block="显示 数字 %n|位置 x %x|y %y"
     //% weight=90 blockGap=8
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
@@ -178,7 +178,7 @@ namespace I2C_LCD1602_14 {
      * @param x is LCD column position, [0 - 15], eg: 0
      * @param y is LCD row position, [0 - 1], eg: 0
      */
-    //% blockId="I2C_LCD1620_SHOW_STRING" block="显示 字符串 %s|位置 x %x|y %y"
+    //% blockId="I2C_LCD1602_SHOW_STRING" block="显示 字符串 %s|位置 x %x|y %y"
     //% weight=90 blockGap=8
     //% x.min=0 x.max=15
     //% y.min=0 y.max=1
@@ -193,7 +193,7 @@ namespace I2C_LCD1602_14 {
     /**
      * 打开液晶显示
      */
-    //% blockId="I2C_LCD1620_ON" block="打开液晶"
+    //% blockId="I2C_LCD1602_ON" block="打开液晶"
     //% weight=80 blockGap=8
     export function on(): void {
         cmd(0x0C)
@@ -202,7 +202,7 @@ namespace I2C_LCD1602_14 {
     /**
      * 关闭液晶显示
      */
-    //% blockId="I2C_LCD1620_OFF" block="关闭液晶"
+    //% blockId="I2C_LCD1602_OFF" block="关闭液晶"
     //% weight=80 blockGap=8
     export function off(): void {
         cmd(0x08)
@@ -211,7 +211,7 @@ namespace I2C_LCD1602_14 {
     /**
      * 清除液晶上显示的内容
      */
-    //% blockId="I2C_LCD1620_CLEAR" block="清除液晶显示内容"
+    //% blockId="I2C_LCD1602_CLEAR" block="清除液晶显示内容"
     //% weight=75 blockGap=8
     export function clear(): void {
         cmd(0x01)
@@ -224,7 +224,7 @@ namespace I2C_LCD1602_14 {
      * @param code is font code, eg: 0
      * @param fontList is 8 byte list
      */
-    //% blockId="I2C_LCD1620_Create_CustomChar" block="自定义字符 %code |编码 %fontList=CustomCharConv"
+    //% blockId="I2C_LCD1602_Create_CustomChar" block="自定义字符 %code |编码 %fontList=CustomCharConv"
     //% code.min=0 code.max=7
     //% weight=100 blockGap=8
     export function CreateCustomChar(code: number, fontList: number[]) {
@@ -244,7 +244,7 @@ namespace I2C_LCD1602_14 {
      * @param x is LCD column position, [0 - 15], eg: 0
      * @param y is LCD row position, [0 - 1], eg: 0
      */
-    //% blockId="I2C_LCD1620_SHOW_STRING_MY" block="显示 自定义字符 %s|位置 x %x|y %y"
+    //% blockId="I2C_LCD1602_SHOW_STRING_MY" block="显示 自定义字符 %s|位置 x %x|y %y"
     //% weight=90 blockGap=8
     //% s.min=0 s.max=7
     //% x.min=0 x.max=15
@@ -261,31 +261,31 @@ namespace I2C_LCD1602_14 {
     // send command
     function cmd(d: number) {
         pins.i2cWriteNumber(i2cAddr, 0x8000 | d, 9)
-        //basic.pause(1)
+        basic.pause(1)
     }
     // send data
     function dat(d: number) {
         pins.i2cWriteNumber(i2cAddr, 0x4000 | d, 9)
-        //basic.pause(1)
+        basic.pause(1)
     }
     // 从robotbit找来的代码，看上去更科学一些。。。。
-    function i2cwrite(addr: number, reg: number, value: number) {
-        let buf = pins.createBuffer(2)
-        buf[0] = reg
-        buf[1] = value
-        pins.i2cWriteBuffer(addr, buf)
-    }
+    // function i2cwrite(addr: number, reg: number, value: number) {
+    //     let buf = pins.createBuffer(2)
+    //     buf[0] = reg
+    //     buf[1] = value
+    //     pins.i2cWriteBuffer(addr, buf)
+    // }
 
-    function i2ccmd(addr: number, value: number) {
-        let buf = pins.createBuffer(1)
-        buf[0] = value
-        pins.i2cWriteBuffer(addr, buf)
-    }
+    // function i2ccmd(addr: number, value: number) {
+    //     let buf = pins.createBuffer(1)
+    //     buf[0] = value
+    //     pins.i2cWriteBuffer(addr, buf)
+    // }
 
-    function i2cread(addr: number, reg: number) {
-        pins.i2cWriteNumber(addr, reg, NumberFormat.UInt8BE);
-        let val = pins.i2cReadNumber(addr, NumberFormat.UInt8BE);
-        return val;
-    }
+    // function i2cread(addr: number, reg: number) {
+    //     pins.i2cWriteNumber(addr, reg, NumberFormat.UInt8BE);
+    //     let val = pins.i2cReadNumber(addr, NumberFormat.UInt8BE);
+    //     return val;
+    // }
 
 }

@@ -1,6 +1,6 @@
 # I2C_LCD1602_14_CN
 
-
+Extension for I2C LCD1602_14
 
 ## License
 
